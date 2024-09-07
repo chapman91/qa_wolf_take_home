@@ -1,0 +1,13 @@
+Methodology.
+
+
+1. Check or confirm that the first 100 articles on the Hacker News "newest" page are sorted --- newest to oldest
+
+
+
+
+Playwright Tooling 
+
+1. Codegen
+2. Playwright inspector
+3. Trace Viewer

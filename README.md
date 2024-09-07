@@ -6,7 +6,7 @@ Welcome to the QA Wolf take home assignment for our [QA Engineer](https://www.no
 
 This assignment has two questions as outlined below. When you are done, send [qa-hiring@qawolf.com](mailto:qa-hiring@qawolf.com) the following:
 
-1. A link to a zip file of this folder on Google Drive 
+1. A link to a zip file of this folder on Google Drive
 
 2. A note indicating your work location (Country/State)
 
@@ -14,7 +14,7 @@ This assignment has two questions as outlined below. When you are done, send [qa
 
 ### Question 1
 
-In this assignment, you will create a script on [Hacker News](https://news.ycombinator.com/) using JavaScript and Microsoft's [Playwright](https://playwright.dev/) framework. 
+In this assignment, you will create a script on [Hacker News](https://news.ycombinator.com/) using JavaScript and Microsoft's [Playwright](https://playwright.dev/) framework.
 
 1. Install node modules by running `npm i`.
 
@@ -26,11 +26,11 @@ Note that you are welcome to update Playwright or install other packages as you 
 
 Why do you want to work at QA Wolf? Please record a short, ~2 min video that includes:
 
-1. Your answer 
+1. Your answer
 
 2. A walk-through demonstration of your code, showing a successful execution
 
-Post the link in `why_qa_wolf.txt` (Please use [Loom](https://www.loom.com) to record your response). The answer and walkthrough should be combined into *one* video.
+Post the link in `why_qa_wolf.txt` (Please use [Loom](https://www.loom.com) to record your response). The answer and walkthrough should be combined into _one_ video.
 
 ## Frequently Asked Questions
 
@@ -55,4 +55,3 @@ This means whether we hire you is based on how you do during our interview proce
 ### How can I help my application stand out?
 
 We've found that our best hires have been the most enthusiastic throughout our process. If you are very excited about working here, please feel free to go above and beyond on this assignment.
-

@@ -4,65 +4,104 @@
 const { chromium } = require("playwright");
 
 
+ /** 
+   * * Launch browser, creates a new context and page, and navigates to the specified URL.
+   * @param {string} url - The URL to navigate to.
+   * @returns {Promise<{ browser: any, page: any}>} - The browser and page objects
+   * 
+   * */ 
 
+async function setupBrowserAndNavigate(url) {
+  // Launch browser
+  const browser = await chromium.launch({ headless: false});
 
-
-
-
-async function openBrowserLaunchIsolatedPage (url) {
-  // Simulate user interaction 
-
-  // launch headless browser
-  const browser = await chromium.launch({ headless: false });
-
-  // Open a new page in the context
+  // Create a new browser context
   const context = await browser.newContext();
 
-  // Navigate to the specified URL
+  // Create a new page
   const page = await context.newPage();
 
-  // go to Hacker News
-  // await page.goto("https://news.ycombinator.com/newest");
+  // Navigate to the specified URL
   await page.goto(url);
 
-  return page;
+  return { browser, page};
+
 
 }
 
 
+
+
+
 /**
- * Extracts and converts the dates from article elements into timestamps
- * @param {import('playwright').Page} page - The Playwright page object
- * @returns {Promise<number[]>} - A promise that resolves to an array of timestamps. 
+ * * Handles Pagination by clicking "More" button
+ * @param {Page} page - The Playwright page object
+ * @returns {Promise<boolean>} - A promise that resolves to true if there is a next page, false otherwise
+ * 
  */
 
-async function extractArticleDates(page) {
-  // Select element with `.age` class
-  const articleDates = await page.$$eval('.age', elements => 
+async function handlePagination(page) {
+try {
+    // Select and store button DOM element
+    const nextButton = await page.$('.morelink'); // Adjust the selector as needed
+
+    // Click button if found
+if (nextButton) {
+      await Promise.all([
+        // Wait for the page to fully load
+  page.waitForNavigation({ waitUntil: 'networkidle' }),
+        nextButton.click(),
+      ]);
+      return true; // Indicate that there was a next page and pagination was handled
+    } else {
+      return false; // Indicate that there is no next page
+    }
+  } catch (error) {
+    console.error('Error handling pagination:', error);
+    return false; // Indicate failure due to an error
+  }
+}
+
+// Handle scenarios where there might be no text button
+// Handle Scenarios where button might not be clickable 
+// Provide clear feedback on whether pagination succeeded or failed
+
+
+
+
+
+/**
+ * *Extract the timestamps for the first 100 Articles 
+ * @param {object} page - Page to the url 
+ * @returns 
+ */
+
+// Function to extract timestamps from articles 
+
+async function extractTimestamps(page) {
+return await page.$$eval('span.age[title]', elements => 
+  //  
     elements.slice(100).map(element => {
-      // Get the timestamp from the `tile` attribute
-      const timeText = element.getAttribute('title');
-      // Convert to timestamp
+      // Extract `title` value and store in variable `timeText`
+ const timeText = element.getAttribute('title');
+      // Convert timestamp to milliseconds
       return new Date(timeText).getTime();
-    })
-)
+    }
+    )
+  )
 }
 
 
 
 
+
+
+
+
+
 /**
- * Navigates through paginated pages and extracts article timestamps.
- * @param {import('play')}
- * 
- * 
  * 
  */
-
-
-
-
-
 
 
 
@@ -73,18 +112,43 @@ async function extractArticleDates(page) {
 
   // asynchronous operations
 async function sortHackerNewsArticles() {
+  // Simulate user interaction 
 
-  // Ascending order, for first 100 artice 
+  /**
+   * 
+   * * launch browser 
+   * 
+   * */ 
+  const browser = await chromium.launch({ headless: false });
+  const context = await browser.newContext();
+  const page = await context.newPage();
 
-  // Extract the timestamps from the first 100 articles
-  const articleDates = await page.$$eval('.age', element =>
-     element.slice(0, 100).map(element => {
-      const timeText = element.getAttribute('title');
-      return new Date(timetext).getTime(); // Convert to timestamp for easy comparison
-     }))
+  // go to Hacker News
+  await page.goto("https://news.ycombinator.com/newest");
+
+  // Extract the Article Information
+  
+
+  // What is the purpose of this `function`?
+  
+    
+    
+    // Extract the timestamps from the first 100 articles
+   const articleDates = await page.$$eval('.age', element =>
+      element.slice(0, 100).map(element => {
+       const timeText = element.getAttribute('title');
+       return new Date(timetext).getTime(); // Convert to timestamp for easy comparison
+      }))
+
+  // 
+ 
 
 
-  // Step 3: Compare the extracted dates to ensure they are in descending order
+
+ 
+
+  // Sort and Compare
+  // Compare the extracted dates to ensure they are in descending order
   let isSorted = true;
   for (let i = 0; i < articleDates.length - 1; 1++) {
     if (articleDates[i] < articleDates(i + 1)) {
@@ -92,6 +156,17 @@ async function sortHackerNewsArticles() {
       break;
     };
   }
+
+
+  // 
+  // Write the logic for what to happen if the articles are not structured from newest to latest
+
+
+
+
+
+
+
 
   // Output the result of the validation 
   if (isSorted) {
@@ -113,8 +188,3 @@ async function sortHackerNewsArticles() {
 (async () => {
   await sortHackerNewsArticles();
 })();
-
-// Query html element with .age Id/class
-// Extract the content of the selected element. The timestamp and the parent element of the post 
-// 
-''
