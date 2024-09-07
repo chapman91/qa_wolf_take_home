@@ -3,17 +3,55 @@
 
 const { chromium } = require("playwright");
 
-  // asynchronous operations
-async function sortHackerNewsArticles() {
+
+
+
+
+
+
+async function openBrowserLaunchIsolatedPage (url) {
   // Simulate user interaction 
 
-  // launch browser
+  // launch headless browser
   const browser = await chromium.launch({ headless: false });
+
+  // Open a new page in the context
   const context = await browser.newContext();
+
+  // Navigate to the specified URL
   const page = await context.newPage();
 
   // go to Hacker News
-  await page.goto("https://news.ycombinator.com/newest");
+  // await page.goto("https://news.ycombinator.com/newest");
+  await page.goto(url);
+
+  return page;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // asynchronous operations
+async function sortHackerNewsArticles() {
 
   // Ascending order, for first 100 artice 
 
@@ -54,3 +92,8 @@ async function sortHackerNewsArticles() {
 (async () => {
   await sortHackerNewsArticles();
 })();
+
+// Query html element with .age Id/class
+// Extract the content of the selected element. The timestamp and the parent element of the post 
+// 
+''
