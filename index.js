@@ -30,13 +30,34 @@ async function openBrowserLaunchIsolatedPage (url) {
 }
 
 
+/**
+ * Extracts and converts the dates from article elements into timestamps
+ * @param {import('playwright').Page} page - The Playwright page object
+ * @returns {Promise<number[]>} - A promise that resolves to an array of timestamps. 
+ */
+
+async function extractArticleDates(page) {
+  // Select element with `.age` class
+  const articleDates = await page.$$eval('.age', elements => 
+    elements.slice(100).map(element => {
+      // Get the timestamp from the `tile` attribute
+      const timeText = element.getAttribute('title');
+      // Convert to timestamp
+      return new Date(timeText).getTime();
+    })
+)
+}
 
 
 
 
-
-
-
+/**
+ * Navigates through paginated pages and extracts article timestamps.
+ * @param {import('play')}
+ * 
+ * 
+ * 
+ */
 
 
 
