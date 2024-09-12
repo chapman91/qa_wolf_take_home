@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {},
+  "test": "playwight test",
+  "test:e2e": "playwright test",
   "keywords": [],
   "author": "",
   "license": "ISC",
