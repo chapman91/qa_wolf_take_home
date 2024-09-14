@@ -4,7 +4,7 @@ const {
   setupBrowserAndNavigate,
   isSorted,
   closeResources,
-  handlePaginationAndCollectTimestamps,
+  handlePaginationAndExtractTimestamps,
 } = require('./src/main.js');
 
 (async () => {
@@ -38,7 +38,7 @@ const {
     }
 
     // 5. Close the browser after everything is done
-    await browser.closeResources();
+    await closeResources(browser);
   } catch (error) {
     // Executed if an error is thrown inside the try block
     console.error('An error occurred:', error);
