@@ -179,66 +179,12 @@ module.exports = {
   handlePaginationAndExtractTimestamps,
   isSorted,
   closeResources,
+  handlePagination,
+  ExtractTimestamps,
 };
 
 // Handle scenarios where there might be no text button
 // Handle Scenarios where button might not be clickable
 // Provide clear feedback on whether pagination succeeded or failed
 
-//   // asynchronous operations
-// async function sortHackerNewsArticles() {
-//   // Simulate user interaction
-
-//   /**
-//    *
-//    * * launch browser
-//    *
-//    * */
-//   const browser = await chromium.launch({ headless: false });
-//   const context = await browser.newContext();
-//   const page = await context.newPage();
-
-//   // go to Hacker News
-//   await page.goto("https://news.ycombinator.com/newest");
-
-//   // Extract the Article Information
-
-//   // What is the purpose of this `function`?
-
-//     // Extract the timestamps from the first 100 articles
-//    const articleDates = await page.$$eval('.age', element =>
-//       element.slice(0, 100).map(element => {
-//        const timeText = element.getAttribute('title');
-//        return new Date(timetext).getTime(); // Convert to timestamp for easy comparison
-//       }))
-
-//   //
-
-//   // Sort and Compare
-//   // Compare the extracted dates to ensure they are in descending order
-//   let isSorted = true;
-//   for (let i = 0; i < articleDates.length - 1; 1++) {
-//     if (articleDates[i] < articleDates(i + 1)) {
-//       isSorted = false;
-//       break;
-//     };
-//   }
-
-//   //
-//   // Write the logic for what to happen if the articles are not structured from newest to latest
-
-//   // Output the result of the validation
-//   if (isSorted) {
-//     console.log('The first 100 articles are sorted from newest to oldest.');
-//   } else {
-//     console.log('The first 100 articles are NOT sorted correctly.');
-//   }
-
-//   // gracefully close up everything
-//   await context.close();
-//   await browser.close();
-// }
-
-// (async () => {
-//   await sortHackerNewsArticles();
-// })();
+/

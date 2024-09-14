@@ -3,7 +3,8 @@ const { test, expect } = require('@playwright/test');
 const {
   setupBrowserAndNavigate,
   handlePagination,
-  extractTimestamps,
+  ExtractTimestamps,
+  handlePaginationAndExtractTimestamps,
   isSorted,
   closeResources,
 } = require('../src/main'); // Adjust the path accordingly
@@ -70,9 +71,37 @@ test.describe('Timestamp Extraction', () => {
   });
 
   test('should extract timestamps from the articles', async () => {
-    const timestamps = await extractTimestamps(page);
+    const timestamps = await ExtractTimestamps(page);
     expect(Array.isArray(timestamps)).toBe(true);
     expect(timestamps.length).toBeGreaterThan(0);
+  });
+
+  test.afterEach(async () => {
+    await closeResources(null, browser);
+  });
+});
+
+//! Test to handlePagination And `ExtractTimestamps`
+
+test.describe('Pagination and Timestamp Extraction', () => {
+  let browser, page;
+
+  // Run before each test
+  test.beforeEach(async () => {
+    const result = await setupBrowserAndNavigate('https://news.ycombinator.com/');
+    browser = result.browser;
+    page = result.page;
+  });
+
+  test('should handle pagination and extract at least 100 timestamps', async () => {
+    const maxPages = 5;
+
+    // Call the function under test
+    const allTimestamps = await handlePaginationAndExtractTimestamps(page, maxPages);
+
+    // Assertions
+    expect(Array.isArray(allTimestamps)).toBe(true);
+    expect(allTimestamps.length).toBe(100);
   });
 
   test.afterEach(async () => {
