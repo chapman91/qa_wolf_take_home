@@ -1,0 +1,3 @@
+# Command 
+
+npx playwright test tests/main.test.js

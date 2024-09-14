@@ -2,10 +2,9 @@
 
 const {
   setupBrowserAndNavigate,
-  handlePagination,
-  extractTimestamps,
   isSorted,
   closeResources,
+  handlePaginationAndCollectTimestamps,
 } = require('./src/main.js');
 
 (async () => {
@@ -22,7 +21,13 @@ const {
     const maxPages = 5;
 
     // Set the maximum number of pages to iterate over
-    const allTimestamps = await handlePagination(page, maxPages);
+    /**
+     * * Modify it to collect timestamps across pages until the total count reaches 100
+     */
+    const allTimestamps = await handlePaginationAndExtractTimestamps(page, maxPages);
+
+    // ! functionality missing for `extractTimestamps`
+    //** Add a condition to skip to the next page until the array equals to `100` */
 
     // 4. Compare timestamps to check if they are in descending order
     const isValidOrder = isSorted(allTimestamps);

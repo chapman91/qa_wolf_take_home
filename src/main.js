@@ -31,37 +31,15 @@ async function setupBrowserAndNavigate(url) {
 
 
 
-
 /**
- * * Handles Pagination by clicking "More" button
- * @param {Page} page - The Playwright page object
- * @returns {Promise<boolean>} - A promise that resolves to true if there is a next page, false otherwise
+ * * Corrected Logic
+ * 
+ * * 1. Extract timestamps from the current page.
+ * * 2. Keep collecting from subsequent pages
+ * * 3. Skip to the next page if necessary
+ * * 4. Stop collecting 
  * 
  */
-
-async function handlePagination(page) {
-try {
-    // Select and store button DOM element
-    const nextButton = await page.$('.morelink'); // Adjust the selector as needed
-
-    // Click button if found
-if (nextButton) {
-      await Promise.all([
-        // Wait for the page to fully load
-  page.waitForNavigation({ waitUntil: 'networkidle' }),
-        nextButton.click(),
-      ]);
-      return true; // Indicate that there was a next page and pagination was handled
-    } else {
-      return false; // Indicate that there is no next page
-    }
-  } catch (error) {
-    console.error('Error handling pagination:', error);
-    return false; // Indicate failure due to an error
-  }
-}
-
-
 
 
 
@@ -69,21 +47,112 @@ if (nextButton) {
  * *Extract the timestamps for the first 100 Articles 
  * @param {object} page - Page to the url 
  * @returns {Array[]} - array of timestamps 
+ * @argument {object} elements - An array of elements matching the selector 
  */
 
-async function extractTimestamps(page) {
+async function ExtractTimestamps(page) {
+
 return await page.$$eval('span.age[title]', elements => 
-  //  
-    elements.slice(100).map(element => {
+
+      // Slcing and Mapping Elements
+      // ! The total selector is spread out across different pages 
+    elements.slice(0, 100).map(element => {
       // Extract `title` value and store in variable `timeText`
+      // ! timeText variable is not an ARRAY but a single string representing the date extracted from the title attribute of each individual element
  const timeText = element.getAttribute('title');
       // Convert timestamp to milliseconds
+      // Converts the timeText (a date string) into a JavaScript Date object
       return new Date(timeText).getTime();
     }
     )
   )
 }
 
+
+
+
+/**
+ * * Handles Pagination by clicking "More" button that takes you to the next page
+ * @param {Page} page - The Playwright page object
+ * @returns {Promise<boolean>} - A promise that resolves to true if there is a next page, false otherwise
+ * 
+ */
+
+async function handlePagination(page) {
+  try {
+      // Select and store button DOM element
+      const nextButton = await page.$('.morelink'); // Adjust the selector as needed
+  
+      // Click button if found
+  if (nextButton) {
+        await Promise.all([
+          // Wait for the page to fully load
+          page.waitForNavigation({ waitUntil: 'networkidle' }),
+          nextButton.click(),
+        ]);
+        return true; // Indicate that there was a next page and pagination was handled
+      } else {
+        return false; // Indicate that there is no next page
+      }
+    } catch (error) {
+      console.error('Error handling pagination:', error);
+      return false; // Indicate failure due to an error
+    }
+  }
+  
+
+
+
+/**
+ * 
+ * * Handles pagination and Collect Timestamps | Combine functionality
+ * @param {object} page 
+ * @param {number} maxPages 
+ * @returns 
+ */
+
+
+
+
+
+async function handlePaginationAndExtractTimestamps(page, maxPages) {
+  let allTimestamps = [];
+  let currentPage = 0;
+
+  // Logic to collect timestamps and handle pagnination
+
+  // Loops navigate through web pages and collect timestamps
+  // The Logical AND operator results in true if both conditions are true
+  while (allTimestamps.length < 100 && currentPage < maxPages) {
+    // Extract timestramps from the current page 
+    const timestamps = await extractTimestamps(page);
+    // combines two arrays | the defined array into the extracted one 
+    allTimestamps = allTimestamps.concat(timestamps);
+
+
+    // Check if we have collected enough timestamps
+    if (allTimestamps.length >= 100) {
+      // Slice to the first 100 timestamps, if the extracted picked up more than 100
+      allTimestamps = allTimestamps.slice(0, 100);
+      break;
+    }
+
+
+    // Navigate to the next page using the provided `handlePagination`
+    const nextPageExists = await handlePagination(page);  // Use the handlePagniation function
+    if (!nextPageExists) {
+      console.log('No more pages to navigate.');
+      break; 
+    }
+
+    currentPage++;
+  }
+
+  return allTimestamps;
+}
+
+// Set a number to the max pages 
+// How are elements or data passed into the `allTimestamps` array? 
 
 
 
@@ -138,8 +207,7 @@ async function closeResources(context, browser) {
 // Exporting the functions so they can be used in main.js
 module.exports = {
   setupBrowserAndNavigate,
-  handlePagination,
-  extractTimestamps,
+  handlePaginationAndExtractTimestamps,
   isSorted,
   closeResources,
 }
