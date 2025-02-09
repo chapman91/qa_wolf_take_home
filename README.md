@@ -1,57 +1,50 @@
-# 🐺 QA Wolf Take Home Assignment Completed & Successful
+# **🐺 QA Wolf Automation Testing Project**
 
-Welcome to the QA Wolf take home assignment for our [QA Engineer](https://www.notion.so/qawolf/QA-Wolf-QA-Engineer-Remote-156203a1e476459ea5e6ffca972d0efe) role! We appreciate your interest and look forward to seeing what you come up with.
+## **📌 Overview**
 
-## Instructions
+This project is a take-home automation testing assignment that demonstrates proficiency in JavaScript and Playwright for end-to-end testing. The objective was to validate article sorting on Hacker News and showcase automation testing skills.
 
-This assignment has two questions as outlined below. When you are done, send [qa-hiring@qawolf.com](mailto:qa-hiring@qawolf.com) the following:
+### **📂 Project Details**
 
-1. A link to a zip file of this folder on Google Drive
+### **🔹 Task 1: Playwright Automation Script**
 
-2. A note indicating your work location (Country/State)
+Developed an automation script using JavaScript and Microsoft's Playwright framework to:
 
-3. A note of how you found this job post (LinkedIn, Handshake, Wellfound, referral, etc.)
+🔹 Navigate to Hacker News' newest articles.
 
-### Question 1
+🔹 Verify that the first 100 articles are sorted from newest to oldest.
 
-In this assignment, you will create a script on [Hacker News](https://news.ycombinator.com/) using JavaScript and Microsoft's [Playwright](https://playwright.dev/) framework.
+🔹 Ensure accurate validation using Playwright assertions.
 
-1. Install node modules by running `npm i`.
+▶️ Steps to Run the Script 
 
-2. Edit the `index.js` file in this project to go to [Hacker News/newest](https://news.ycombinator.com/newest) and validate that EXACTLY the first 100 articles are sorted from newest to oldest. You can run your script with the `node index.js` command.
+1. Install dependencies:
 
-Note that you are welcome to update Playwright or install other packages as you see fit, however you must utilize Playwright in this assignment.
+``` npm install ```
 
-### Question 2
+2. Execute the script:
 
-Why do you want to work at QA Wolf? Please record a short, ~2 min video that includes:
+``` node index.js ```
 
-1. Your answer
+### **🔹 Task 2: Project Walkthrough & Demonstration**
 
-2. A walk-through demonstration of your code, showing a successful execution
+A detailed walkthrough was provided, explaining the script logic and demonstrating successful execution.
 
-Post the link in `why_qa_wolf.txt` (Please use [Loom](https://www.loom.com) to record your response). The answer and walkthrough should be combined into _one_ video.
+**🚀 Key Technologies Used**
 
-## Frequently Asked Questions
+1. JavaScript (Node.js)
 
-### What is your hiring process? When will I hear about next steps?
+2. Playwright
 
-This take home assignment is the first step in our hiring process, followed by a final round interview if it goes well. **We review every take home assignment submission and promise to get back to you either way within one week (usually sooner).** The only caveat is if we are out of the office, in which case we will get back to you when we return. If it has been more than one week and you have not heard from us, please do follow up.
+3. Web Automation Testing
 
-The final round interview is a 2-hour technical work session that reflects what it is like to work here. We provide a $150 stipend for your time for the final round interview regardless of how it goes. After that, there may be a short chat with our director about your experience and the role.
+4. Data Validation & Assertions
 
-Our hiring process is rolling where we review candidates until we have filled our openings. If there are no openings left, we will keep your contact information on file and reach out when we are hiring again.
+**🎯 Learnings & Takeaways**
 
-### How do you decide who to hire?
+✅ Deepened understanding of Playwright's capabilities in web automation.
 
-We evaluate candidates based on three criteria:
+✅ Strengthened skills in validating web data integrity.
 
-- Technical ability (as demonstrated in the take home and final round)
-- Customer service orientation (as this role is customer facing)
-- Alignment with our values (captured [here](https://www.notion.so/qawolf/QA-Wolf-QA-Engineer-Remote-156203a1e476459ea5e6ffca972d0efe))
+✅ Improved script efficiency and debugging techniques.
 
-This means whether we hire you is based on how you do during our interview process, not on your previous experience (or lack thereof). Note that you will also need to pass a background check to work here as our customers require this.
-
-### How can I help my application stand out?
-
-We've found that our best hires have been the most enthusiastic throughout our process. If you are very excited about working here, please feel free to go above and beyond on this assignment.
